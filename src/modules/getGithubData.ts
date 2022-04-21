@@ -47,7 +47,7 @@ export const getGithubData = async (cache: AggregateData) => {
           .filter((el) => !el.pull_request && el.user.login !== "renovate[bot]")
           .map(
             ({
-              url,
+              html_url,
               repository_url,
               number,
               state,
@@ -56,7 +56,7 @@ export const getGithubData = async (cache: AggregateData) => {
               user,
               assignee,
             }) => ({
-              url,
+              url: html_url,
               repository_url,
               number,
               state,
