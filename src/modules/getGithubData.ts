@@ -1,0 +1,70 @@
+import fetch from "node-fetch";
+
+import { orgList } from "../configs/Organisations";
+import { AggregateData } from "../interfaces/AggregateData";
+import { Issue } from "../interfaces/Issue";
+import { Repository } from "../interfaces/Repository";
+import { logHandler } from "../utils/logHandler";
+
+/**
+ * Updates the cached data.
+ *
+ * @param {AggregateData} cache The cached GitHub Data.
+ */
+export const getGithubData = async (cache: AggregateData) => {
+  logHandler.log("info", "Updating GitHub data!");
+  for (const org of orgList) {
+    logHandler.log("info", `Getting data for ${org}`);
+    cache[org] = [];
+
+    const orgUrl =
+      org === "nhcarrigan"
+        ? `https://api.github.com/users/${org}/repos?type=owner&per_page=100`
+        : `https://api.github.com/orgs/${org}/repos?type=public&per_page=100`;
+
+    const rawRepos = await fetch(orgUrl, {
+      headers: {
+        Accept: "application/vnd.github.v3+json",
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+    const repos = (await rawRepos.json()) as Repository[];
+
+    for (const repo of repos) {
+      const rawIssues = await fetch(
+        `https://api.github.com/repos/${org}/${repo.name}/issues?state=open&per_page=100`,
+        {
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          },
+        }
+      );
+
+      const issues = (await rawIssues.json()) as Issue[];
+      cache[org].push(
+        ...issues.map(
+          ({
+            url,
+            repository_url,
+            number,
+            state,
+            title,
+            labels,
+            user,
+            assignee,
+          }) => ({
+            url,
+            repository_url,
+            number,
+            state,
+            title,
+            labels,
+            user,
+            assignee,
+          })
+        )
+      );
+    }
+  }
+};
