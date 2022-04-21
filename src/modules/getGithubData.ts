@@ -43,27 +43,29 @@ export const getGithubData = async (cache: AggregateData) => {
 
       const issues = (await rawIssues.json()) as Issue[];
       cache[org].push(
-        ...issues.map(
-          ({
-            url,
-            repository_url,
-            number,
-            state,
-            title,
-            labels,
-            user,
-            assignee,
-          }) => ({
-            url,
-            repository_url,
-            number,
-            state,
-            title,
-            labels,
-            user,
-            assignee,
-          })
-        )
+        ...issues
+          .filter((el) => !el.pull_request && el.user.login !== "renovate[bot]")
+          .map(
+            ({
+              url,
+              repository_url,
+              number,
+              state,
+              title,
+              labels,
+              user,
+              assignee,
+            }) => ({
+              url,
+              repository_url,
+              number,
+              state,
+              title,
+              labels,
+              user,
+              assignee,
+            })
+          )
       );
     }
   }
