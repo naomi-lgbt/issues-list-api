@@ -18,7 +18,7 @@ export const getGithubData = async (cache: AggregateData) => {
     cache[org] = [];
 
     const orgUrl =
-      org === "nhcarrigan"
+      org === "naomi-lgbt"
         ? `https://api.github.com/users/${org}/repos?type=owner&per_page=100`
         : `https://api.github.com/orgs/${org}/repos?type=public&per_page=100`;
 
