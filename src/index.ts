@@ -11,6 +11,7 @@ import { logHandler } from "./utils/logHandler";
 
 (async () => {
   const cache: AggregateData = {
+    "naomi-lgbt": [],
     nhcarrigan: [],
     beccalyria: [],
     rosalianightsong: [],
@@ -22,7 +23,7 @@ import { logHandler } from "./utils/logHandler";
   const app = express();
 
   const allowedOrigins = [
-    "https://contribute.nhcarrigan.com",
+    "https://contribute.naomi.lgbt",
     "http://localhost:4200",
   ];
 
@@ -52,15 +53,15 @@ import { logHandler } from "./utils/logHandler";
 
   if (process.env.NODE_ENV === "production") {
     const privateKey = await readFile(
-      "/etc/letsencrypt/live/contribute-api.nhcarrigan.com/privkey.pem",
+      "/etc/letsencrypt/live/contribute-api.naomi.lgbt/privkey.pem",
       "utf8"
     );
     const certificate = await readFile(
-      "/etc/letsencrypt/live/contribute-api.nhcarrigan.com/cert.pem",
+      "/etc/letsencrypt/live/contribute-api.naomi.lgbt/cert.pem",
       "utf8"
     );
     const ca = await readFile(
-      "/etc/letsencrypt/live/contribute-api.nhcarrigan.com/chain.pem",
+      "/etc/letsencrypt/live/contribute-api.naomi.lgbt/chain.pem",
       "utf8"
     );
 
