@@ -11,12 +11,30 @@ import { logHandler } from "./utils/logHandler";
 
 (async () => {
   const cache: AggregateData = {
-    "naomi-lgbt": [],
-    nhcarrigan: [],
-    beccalyria: [],
-    rosalianightsong: [],
-    beccalia: [],
-    nhcommunity: [],
+    "naomi-lgbt": {
+      issues: [],
+      pulls: [],
+    },
+    nhcarrigan: {
+      issues: [],
+      pulls: [],
+    },
+    beccalyria: {
+      issues: [],
+      pulls: [],
+    },
+    rosalianightsong: {
+      issues: [],
+      pulls: [],
+    },
+    beccalia: {
+      issues: [],
+      pulls: [],
+    },
+    nhcommunity: {
+      issues: [],
+      pulls: [],
+    },
   };
   await getGithubData(cache);
   setInterval(async () => await getGithubData(cache), 1800000);
