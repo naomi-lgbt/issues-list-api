@@ -18,7 +18,7 @@ export interface AggregateData {
     issues: FilteredIssue[];
     pulls: FilteredPull[];
   };
-  nhcommunity: {
+  "naomis-novas": {
     issues: FilteredIssue[];
     pulls: FilteredPull[];
   };

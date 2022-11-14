@@ -6,5 +6,5 @@ export const orgList: (keyof AggregateData)[] = [
   "beccalyria",
   "beccalia",
   "rosalianightsong",
-  "nhcommunity",
+  "naomis-novas",
 ];
