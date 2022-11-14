@@ -31,7 +31,7 @@ import { logHandler } from "./utils/logHandler";
       issues: [],
       pulls: [],
     },
-    nhcommunity: {
+    "naomis-novas": {
       issues: [],
       pulls: [],
     },
