@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 import { orgList } from "../configs/Organisations";
 import { AggregateData } from "../interfaces/AggregateData";
 import { Issue } from "../interfaces/Issue";
