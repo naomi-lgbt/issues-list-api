@@ -28,7 +28,7 @@ export const postNewIssues = async (cache: AggregateData) => {
 
   logHandler.log("info", `Found ${newIssues.length} new issues.`);
   for (const issue of newIssues) {
-    const [repo, owner] = issue.repository_url.split("/").slice(-2);
+    const [owner, repo] = issue.repository_url.split("/").slice(-2);
     const isFirstTimers = !!issue.labels.find(
       (label) => label.name === "good first issue"
     );
@@ -37,20 +37,29 @@ export const postNewIssues = async (cache: AggregateData) => {
       `Processing issue #${issue.number} on ${owner}/${repo}.`
     );
     // add label
-    await fetch(`${issue.url}/labels`, {
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-      },
-      method: "POST",
-      body: JSON.stringify({
-        labels: ["posted to discord"],
-      }),
-    });
+    const addLabel = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/issues/${issue.number}/labels`,
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+        },
+        method: "POST",
+        body: JSON.stringify({
+          labels: ["posted to discord"],
+        }),
+      }
+    );
+    const addLabelResponse = await addLabel.json();
+    console.log(addLabelResponse);
 
     // post to discord
-    await fetch(process.env.DISCORD_WEBHOOK as string, {
+    const discordMessage = await fetch(process.env.DISCORD_WEBHOOK as string, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify({
         content: `Heya <@&1090040102090190909>~! [Issue #${issue.number}](${
           issue.url
@@ -61,5 +70,6 @@ export const postNewIssues = async (cache: AggregateData) => {
         }Please be sure to follow our [contributing guidelines](https://contribute.nhcarrigan.com)`,
       }),
     });
+    console.log(`Posted to Discord? ${discordMessage.ok}`);
   }
 };
