@@ -7,6 +7,7 @@ import express from "express";
 
 import { AggregateData } from "./interfaces/AggregateData";
 import { getGithubData } from "./modules/getGithubData";
+import { postNewIssues } from "./modules/postNewIssues";
 import { logHandler } from "./utils/logHandler";
 
 (async () => {
@@ -37,7 +38,11 @@ import { logHandler } from "./utils/logHandler";
     },
   };
   await getGithubData(cache);
-  setInterval(async () => await getGithubData(cache), 1800000);
+  await postNewIssues(cache);
+  setInterval(async () => {
+    await getGithubData(cache);
+    await postNewIssues(cache);
+  }, 1800000);
   const app = express();
 
   const allowedOrigins = [
