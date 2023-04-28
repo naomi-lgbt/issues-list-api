@@ -1,3 +1,4 @@
+import { orgList } from "../configs/Organisations";
 import { AggregateData } from "../interfaces/AggregateData";
 import { FilteredIssue } from "../interfaces/FilteredIssue";
 import { logHandler } from "../utils/logHandler";
@@ -9,10 +10,10 @@ import { logHandler } from "../utils/logHandler";
  */
 export const postNewIssues = async (cache: AggregateData) => {
   logHandler.log("info", "Posting new issues that are ready for contribution.");
-  const allIssues: FilteredIssue[] = Object.values(cache).reduce(
-    (acc, val) => acc.concat(val.issues),
-    []
-  );
+  const allIssues: FilteredIssue[] = [];
+  for (const org of orgList) {
+    allIssues.push(...cache[org].issues);
+  }
   const unassignedIssues = allIssues.filter((el) => !el.assignee);
   const readyForDevIssues = unassignedIssues.filter((el) =>
     el.labels.find((label) => label.name === "🏁 status: ready for dev")
