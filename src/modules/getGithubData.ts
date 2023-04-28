@@ -94,4 +94,5 @@ export const getGithubData = async (cache: AggregateData) => {
       );
     }
   }
+  cache.updatedAt = Date.now();
 };

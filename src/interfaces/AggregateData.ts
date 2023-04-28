@@ -26,4 +26,5 @@ export interface AggregateData {
     issues: FilteredIssue[];
     pulls: FilteredPull[];
   };
+  updatedAt: number;
 }

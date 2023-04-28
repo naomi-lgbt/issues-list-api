@@ -36,6 +36,7 @@ import { logHandler } from "./utils/logHandler";
       issues: [],
       pulls: [],
     },
+    updatedAt: Date.now(),
   };
   await getGithubData(cache);
   await postNewIssues(cache);
