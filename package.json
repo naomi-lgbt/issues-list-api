@@ -34,7 +34,7 @@
     "eslint-plugin-jsdoc": "40.3.0",
     "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.8",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "cors": "2.8.5",
