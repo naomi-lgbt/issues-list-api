@@ -10,8 +10,8 @@
     "test": "echo \"no tests yet\""
   },
   "engines": {
-    "node": "18.17.1",
-    "pnpm": "8.6.12"
+    "node": "18",
+    "pnpm": "8"
   },
   "repository": {
     "type": "git",
