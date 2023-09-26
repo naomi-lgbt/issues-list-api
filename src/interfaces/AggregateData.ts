@@ -10,21 +10,5 @@ export interface AggregateData {
     issues: FilteredIssue[];
     pulls: FilteredPull[];
   };
-  beccalyria: {
-    issues: FilteredIssue[];
-    pulls: FilteredPull[];
-  };
-  rosalianightsong: {
-    issues: FilteredIssue[];
-    pulls: FilteredPull[];
-  };
-  "naomis-novas": {
-    issues: FilteredIssue[];
-    pulls: FilteredPull[];
-  };
-  beccalia: {
-    issues: FilteredIssue[];
-    pulls: FilteredPull[];
-  };
   updatedAt: number;
 }

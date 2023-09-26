@@ -19,22 +19,6 @@ import { logHandler } from "./utils/logHandler";
       issues: [],
       pulls: [],
     },
-    beccalyria: {
-      issues: [],
-      pulls: [],
-    },
-    rosalianightsong: {
-      issues: [],
-      pulls: [],
-    },
-    beccalia: {
-      issues: [],
-      pulls: [],
-    },
-    "naomis-novas": {
-      issues: [],
-      pulls: [],
-    },
     updatedAt: Date.now(),
   };
   await getGithubData(cache);
